@@ -29,6 +29,21 @@ CREATE TABLE Pedidos (
     FOREIGN KEY (LivroID) REFERENCES Livros(LivroID)
 );
 
+CREATE TABLE itensPedidos (
+PedidoID INT,
+LivroID INT,
+Quantidade INT,
+PRIMARY KEY (PedidoID, LivroID),
+FOREIGN KEY  (PedidoID) REFERENCES Pedidos(PedidoID),
+FOREIGN KEY (LivroID) REFERENCES Livros(LivroID)
+);
+
+ALTER TABLE Pedidos
+DROP COLUMN LivroID;
+
+ALTER TABLE Pedidos
+DROP COLUMN Quantidade;
+
 
 CREATE TABLE Clientes (
     ClienteID INT PRIMARY KEY,
