@@ -29,20 +29,28 @@ CREATE TABLE Pedidos (
     FOREIGN KEY (LivroID) REFERENCES Livros(LivroID)
 );
 
-CREATE TABLE itensPedidos (
-PedidoID INT,
-LivroID INT,
-Quantidade INT,
-PRIMARY KEY (PedidoID, LivroID),
-FOREIGN KEY  (PedidoID) REFERENCES Pedidos(PedidoID),
-FOREIGN KEY (LivroID) REFERENCES Livros(LivroID)
+	CREATE TABLE itensPedidos (
+	PedidoID INT,
+	LivroID INT,
+	Quantidade INT,
+	PRIMARY KEY (PedidoID, LivroID),
+	FOREIGN KEY  (PedidoID) REFERENCES Pedidos(PedidoID),
+	FOREIGN KEY (LivroID) REFERENCES Livros(LivroID)
 );
+	# Excluir todas as linhas da tabela Pedidos que contenham dados na coluna LivroID
+	DELETE FROM Pedidos
+    WHERE LivroID IS NOT NULL;
+    
+    # Remover a Foreign Key da tabela Pedidos
+    ALTER TABLE Pedidos
+    DROP FOREIGN KEY Pedidos_ibfk_1;
+    
+    # Fazer o drop da coluna LivroID da tabela Pedidos
+	ALTER TABLE Pedidos
+	DROP COLUMN LivroID;
 
-ALTER TABLE Pedidos
-DROP COLUMN LivroID;
-
-ALTER TABLE Pedidos
-DROP COLUMN Quantidade;
+	ALTER TABLE Pedidos
+	DROP COLUMN Quantidade;
 
 
 CREATE TABLE Clientes (
@@ -147,39 +155,67 @@ VALUES
 
 
 
-INSERT INTO Pedidos (PedidoID, DataPedido, ValorTotal, LivroID, Quantidade)
+INSERT INTO Pedidos (PedidoID, DataPedido, ValorTotal)
 VALUES
-    (16, '2023-09-16', 22.99, 1, 3),
-    (17, '2023-09-17', 18.75, 2, 2),
-    (18, '2023-09-18', 14.99, 3, 4),
-    (19, '2023-09-19', 26.50, 4, 1),
-    (20, '2023-09-20', 19.99, 5, 2),
-    (21, '2023-09-21', 29.99, 6, 3),
-    (22, '2023-09-22', 17.75, 7, 2),
-    (23, '2023-09-23', 32.50, 8, 1),
-    (24, '2023-09-24', 21.99, 9, 4),
-    (25, '2023-09-25', 27.75, 10, 1),
-    (26, '2023-09-26', 18.50, 11, 2),
-    (27, '2023-09-27', 24.99, 12, 3),
-    (28, '2023-09-28', 29.75, 13, 1),
-    (29, '2023-09-29', 15.99, 14, 2),
-    (30, '2023-09-30', 28.50, 15, 5),
-    (31, '2023-10-01', 20.99, 1, 2),
-    (32, '2023-10-02', 16.75, 2, 3),
-    (33, '2023-10-03', 24.50, 3, 1),
-    (34, '2023-10-04', 18.99, 4, 4),
-    (35, '2023-10-05', 21.75, 5, 2),
-    (36, '2023-10-06', 23.99, 6, 3),
-    (37, '2023-10-07', 26.50, 7, 1),
-    (38, '2023-10-08', 19.99, 8, 2),
-    (39, '2023-10-09', 15.75, 9, 3),
-    (40, '2023-10-10', 28.50, 10, 1);
+    (16, '2023-09-16', 22.99),
+    (17, '2023-09-17', 18.75),
+    (18, '2023-09-18', 14.99),
+    (19, '2023-09-19', 26.50),
+    (20, '2023-09-20', 19.99),
+    (21, '2023-09-21', 29.99),
+    (22, '2023-09-22', 17.75),
+    (23, '2023-09-23', 32.50),
+    (24, '2023-09-24', 21.99),
+    (25, '2023-09-25', 27.75),
+    (26, '2023-09-26', 18.50),
+    (27, '2023-09-27', 24.99),
+    (28, '2023-09-28', 29.75),
+    (29, '2023-09-29', 15.99),
+    (30, '2023-09-30', 28.50),
+    (31, '2023-10-01', 20.99),
+    (32, '2023-10-02', 16.75),
+    (33, '2023-10-03', 24.50),
+    (34, '2023-10-04', 18.99),
+    (35, '2023-10-05', 21.75),
+    (36, '2023-10-06', 23.99),
+    (37, '2023-10-07', 26.50),
+    (38, '2023-10-08', 19.99),
+    (39, '2023-10-09', 15.75),
+    (40, '2023-10-10', 28.50);
+    
+    INSERT INTO ItensPedidos (PedidoID, LivroID, Quantidade) VALUES
+    (16, 1, 3),
+	(17, 2, 2),
+	(18, 3, 4),
+	(19, 4, 1),
+	(20, 5, 2),
+    (21, 6, 3),
+	(22, 7, 2),
+	(23, 8, 1),
+	(24, 9, 4),
+	(25, 10, 1),
+	(26, 11, 2),
+	(27, 12, 3),
+	(28, 13, 1),
+	(29, 14, 2),
+	(30, 15, 5),
+	(31, 1, 2),
+	(32, 2, 3),
+	(33, 3, 1),
+	(34, 4, 4),
+	(35, 5, 2),
+	(36, 6, 3),
+	(37, 7, 1),
+	(38, 8, 2),
+	(39, 9, 3),
+	(40, 10, 1);
 
 
 select * from pedidos;
 select * from clientes;
 select * from livros;
 select * from autores;
+select * from ItensPedidos;
 
 
 
